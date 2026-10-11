@@ -25,9 +25,9 @@ sc-im has the following modes:
                  commands.
    INSERT MODE:  Use the '=', '<', '>', or '\' to go to Insert mode, where you
                  can enter new values and expressions into cells.
-     EDIT MODE:  Use the 'e' or 'E' keys to go to Edit mode and enter a single
+     EDIT MODE:  Use the 'j' or 'J' keys to go to Edit mode and enter a single
                  line, Vi-like, command to modify cell content
-                 and expressions.  The 'e' and 'E' keys enter this mode.
+                 and expressions.  The 'j' and 'J' keys enter this mode.
   COMMAND MODE:  Use the ':' key to enter Command mode. This is for entering
                  special commands such as quitting the app and saving files.
    VISUAL MODE:  Visual mode is used for selecting a range of cells.  See the
@@ -39,7 +39,7 @@ sc-im has the following modes:
 &NORMAL MODE&
 
 Navigation commands:
-     j k l h     Move cursor down, up, right or left.
+     k l e h     Move cursor down, up, right or left.
      <UP>        Move cursor up
      <DOWN>      Move cursor down
      <LEFT>      Move cursor left
@@ -111,11 +111,11 @@ Commands for handling cell content:
                  a range is selected, every cell of the range gets aligned.
 
      f< , fh , f-LEFT:  Change column format: Decrement column width.
-     f> , fl , f-RIGHT: Change column format: Increment column width.
+     f> , fe , f-RIGHT: Change column format: Increment column width.
      f+                 Change column format: Increment decimal precision.
      f-                 Change column format: Decrement decimal precision.
-     fj , f-DOWN:       Change row format: Increase height.
-     fk , f-UP:         Change row format: Decrease height.
+     fk , f-DOWN:       Change row format: Increase height.
+     fl , f-UP:         Change row format: Decrease height.
 
      fr          Freeze a row or the rows selected.
                  If none is selected it freezes the current row.
@@ -129,10 +129,10 @@ Commands for handling cell content:
      ic          Insert a column.
      or          Open a row: insert after the current row.
      oc          Open a column: insert after the current column.
-     sk          Shifts the current cell or range up.
-     sj          Shifts the current cell or range down.
+     sk          Shifts the current cell or range down.
+     sl          Shifts the current cell or range up.
      sh          Shifts the current cell or range left.
-     sl          Shifts the current cell or range right.
+     se          Shifts the current cell or range right.
 
      yy          Yank the selected cell.
      y           If a range is selected, yank the range.
@@ -177,7 +177,7 @@ Commands for handling cell content:
                  3. cell editing
                  4. cell or range change in alignment
                  5. pasting a cell or range
-                 6. range or cell shift with sh sj sk sl
+                 6. range or cell shift with sh sk sl se
                  7. row or column insertion
                  8. row or column deletion
                  9. pasting a row or column
@@ -282,8 +282,8 @@ Commands for handling cell content:
 ==============================================================================
 &EDIT MODE&
 
-     e           In normal mode, enter Edit mode to edit a numeric value.
-     E           In normal mode, enter Edit mode to edit a text value.
+     j           In normal mode, enter Edit mode to edit a numeric value.
+     J           In normal mode, enter Edit mode to edit a text value.
      h           Move a character left.
      l           Move a character right.
      w           Move to the beginning of the next word.
@@ -573,6 +573,8 @@ Commands for handling cell content:
                  Switches to the sheet with the given name.
 
      :showmaps   Show all key mappings.
+    :marks      Show details of all marks set so far, including their type
+                (cell or range), the sheet and the position of each mark.
 
      :nmap {lhs} {rhs}
                  Map the key sequence {lhs} to {rhs} This mapping takes effect
@@ -898,7 +900,7 @@ Commands for handling cell content:
                      CELL_ERROR, CELL_NEGATIVE, CELL_SELECTION,
                      CELL_SELECTION_SC, INFO_MSG, ERROR_MSG, CELL_ID,
                      CELL_FORMAT, CELL_CONTENT, WELCOME, NORMAL, INPUT,
-                     HELP_HIGHLIGHT.
+                     HELP_HIGHLIGHT, HELP_TEXT.
 
                 The value of fg and bg shall be one of the following:
                      WHITE, BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN,
@@ -972,6 +974,8 @@ Commands for handling cell content:
                           input bar at the top left of the screen.
                         - HELP_HIGHLIGHT Color used for highlighting search results
                           and titles of help page.
+                        - HELP_TEXT The color used for the regular text shown in
+                          the help page (:help).
 
     :cellcolor "{key}={arg} .."
                 Change the color of the current cell or range.
@@ -1148,12 +1152,12 @@ Commands for handling cell content:
     right limit of the selected range is set to current row and column.
 
     From Insert or Command mode, press <C-v>, then position the cursor with
-    arrow keys or hjkl keys, and then press <C-o> to begin selection.
+    arrow keys or k l e h keys, and then press <C-o> to begin selection.
     Move the cursor to complete the selection, then press <C-k> to input
     the range into the cell.
 
     The following motion commands move the cursor during selection:
-    j k l h     Move down, up, right or left.
+    k l e h     Move down, up, right or left.
     0           Move to column A.
     $           Move forward to the last valid column of the current row.
     #           Move down to the last valid row of the current column.
@@ -1245,7 +1249,7 @@ Commands for handling cell content:
 
     An optional number may precede commands in Normal, Visual or Edit mode to
     multiply or iterate the command.
-    Ex. '4j' in Normal mode, translates to 4 times 'j'.
+    Ex. '4k' in Normal mode, translates to 4 times 'k'.
     Ex. '4yr' in Normal mode, yanks current row and the 3 rows below it.
 
     Note: The 'x' command in Visual mode, and the shift commands in Visual
@@ -1277,7 +1281,7 @@ Commands for handling cell content:
                 will output 'Mar 1984' with my current locale.
 
             NOTES: + You can edit the date value by changing the text content
-                     of the cell with 'E' command.
+                     of the cell with 'J' command.
                    + To get current locale's D_FMT format, you might want to
                    issue ``locale -k d_fmt`` on your current shell.
 
@@ -1292,7 +1296,7 @@ Commands for handling cell content:
             Example:            \12/03/2020
                                 :datefmt "%d/%m/%Y"
 
-            NOTE: Take note here that if you edit the date with the 'E' command,
+            NOTE: Take note here that if you edit the date with the 'J' command,
             sc-im will nevertheless convert the date using locale's D_FMT format
             and not the one you used with datefmt.
             You will need to reapply :datefmt "%d/%m/%Y" or whatever format
@@ -1616,7 +1620,7 @@ Commands for handling cell content:
         - In B21: =@index($B$1:$F$10,11-@frow(B1),@fcol(B1))
         - copy the cell with yy
         - enter visual mode with v
-        - navigate with j to B30 and with l to F30
+        - navigate with k to B30 and with e to F30
         - paste with P
 
     @stindex(e1,r)
@@ -1649,7 +1653,7 @@ Commands for handling cell content:
           \"stindex({"DEPT"}!$C$1:{"DEPT"}!$C$4,@vlookup({"DEPT"}!$B$1:{"DEPT"}!$B$4, E1+1, -1))
         - copy the cell with yy
         - use v to enter visual mode
-        - enter h # l to select the whole column
+        - enter h # e to select the whole column
         - use P to paste the formula to column F
 
 

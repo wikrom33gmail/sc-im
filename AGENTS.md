@@ -24,20 +24,20 @@ accessed as: session->cur_doc->cur_sh   (e.g. trigger.c:93)
 5. **Redraw** — TUI layer redraws from sheet data: `ui_update(TRUE)`, `ui_show_header`, `ui_print_mode`, `ui_show_celldetails` (`tui.h:74-81`).
 
 ### Key modules
-| Module                            | Purpose                                                                                                            |
-| ---                               | ---                                                                                                                |
-| `src/main.c`                      | Entry point, startup orchestration, main loop, `exit_app()`, signal handlers.                                      |
-| `src/sc.h`                        | Core header — defines `session`, `roman`, `sheet`, `ent` (cell), `enode`, `range`; included nearly everywhere.     |
-| `src/gram.y` → `y.tab.c`/`gram.c` | Bison grammar generating `yyparse()`; actions call interp semantics.                                               |
-| `src/interp.c`                    | Expression interpreter *semantics*: `eval`, `seval`, `let`, `label`, `getent`, `lookat`, `copy`, `yankr`, `mover`. |
-| `src/cmds/*.c`                    | Per-mode command dispatch (`do_<mode>mode`) and cell content entry.                                                |
-| `src/input.c`                     | Keyboard input: `handle_input`, multipliers, timeouts, `exec_single_cmd()`.                                        |
-| `src/graph.c`                     | Dependency graph for formula evaluation (CamelCase API).                                                           |
-| `src/undo.c`                      | Undo/redo linked list (`#ifdef UNDO`).                                                                             |
-| `src/xmalloc.c`                   | Memory wrappers: `scxmalloc/scxfree/scxrealloc`, `fatal()`.                                                        |
-| `src/vmtbl.c`                     | Cell-table accessors & growth; **`ATBL()`** is the cell accessor that fires READ triggers.                         |
-| `src/trigger.c` + `trigger.lua`   | Per-cell READ/WRITE triggers (Lua/C/shell).                                                                        |
-| `src/tui.c`                       | ncurses TUI layer (`ui_*` prefix); also hosts yacc's `yyerror`.                                                    |
+|Module|Purpose|
+|---|---|
+|`src/main.c`|Entry point, startup orchestration, main loop, `exit_app()`, signal handlers.|
+|`src/sc.h`|Core header — defines `session`, `roman`, `sheet`, `ent` (cell), `enode`, `range`; included nearly everywhere.|
+|`src/gram.y` → `y.tab.c`/`gram.c`|Bison grammar generating `yyparse()`; actions call interp semantics.|
+|`src/interp.c`|Expression interpreter *semantics*: `eval`, `seval`, `let`, `label`, `getent`, `lookat`, `copy`, `yankr`, `mover`.|
+|`src/cmds/*.c`|Per-mode command dispatch (`do_<mode>mode`) and cell content entry.|
+|`src/input.c`|Keyboard input: `handle_input`, multipliers, timeouts, `exec_single_cmd()`.|
+|`src/graph.c`|Dependency graph for formula evaluation (CamelCase API).|
+|`src/undo.c`|Undo/redo linked list (`#ifdef UNDO`).|
+|`src/xmalloc.c`|Memory wrappers: `scxmalloc/scxfree/scxrealloc`, `fatal()`.|
+|`src/vmtbl.c`|Cell-table accessors & growth; **`ATBL()`** is the cell accessor that fires READ triggers.|
+|`src/trigger.c` + `trigger.lua`|Per-cell READ/WRITE triggers (Lua/C/shell).|
+|`src/tui.c`|ncurses TUI layer (`ui_*` prefix); also hosts yacc's `yyerror`.|
 
 ## Key Directories
 
@@ -66,13 +66,13 @@ bash tests/run_all_tests.sh # run the full test suite (binary must already be bu
 ### Feature flags (pkg-config detection at build time, `src/Makefile:101-150`)
 Detection only runs when `pkg-config` is present. A feature is compiled in **only if its library resolves** — otherwise it's silently absent from the binary.
 
-| Define          | pkg-config dep                             | Effect                                       |
-| ---             | ---                                        | ---                                          |
-| `-DXLS`         | `libxls`                                   | XLS file reading                             |
-| `-DODS -DXLSX`  | `libzip libxml-2.0`                        | ODS + XLSX import                            |
-| `-DXLSX_EXPORT` | `xlsxwriter`                               | XLSX export                                  |
-| `-DXLUA`        | highest-versioned `lua-5.x`, else `luajit` | Lua scripting (links `-Wl,--export-dynamic`) |
-| `-DGNUPLOT`     | `which gnuplot` probe                      | Plot support                                 |
+|Define|pkg-config dep|Effect|
+|---|---|---|
+|`-DXLS`|`libxls`|XLS file reading|
+|`-DODS -DXLSX`|`libzip libxml-2.0`|ODS + XLSX import|
+|`-DXLSX_EXPORT`|`xlsxwriter`|XLSX export|
+|`-DXLUA`|highest-versioned `lua-5.x`, else `luajit`|Lua scripting (links `-Wl,--export-dynamic`)|
+|`-DGNUPLOT`|`which gnuplot` probe|Plot support|
 
 Override the Lua pkg name explicitly: `make -C src LUA_PKGNAME=lua-5.4`. Other toggles (`-DUNDO`, `-DMOUSE`, `-DAUTOBACKUP`, `-DUSECOLORS`) are compile-time `#define`s you comment out in the Makefile to disable.
 
