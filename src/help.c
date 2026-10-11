@@ -81,40 +81,8 @@ int load_help () {
     register FILE * f;
     int line;
     int c = 0, count = 0, max_width = COLS;
-    char helpfile_path[BUFFERSIZE];
-
-    // we try to read help file in HELP_PATH
-    sprintf(helpfile_path, "%s/%s_help", HELP_PATH, SNAME);
-    f = fopen(helpfile_path, "r");
-
-    // we try to read help file in current dir
-    if (! f ) {
-        f = fopen("./doc", "r");
-    }
-
-    // we try to read help file in HELP_PATH/doc
-    if (! f ) {
-        sprintf(helpfile_path, "%s/doc", HELP_PATH);
-        f = fopen(helpfile_path, "r");
-    }
-
-    // last change to read the help file !
-    if (! f ) {
-        char cwd[PATH_MAX];
-        extern char *exepath;
-        if (realpath(exepath, cwd) == NULL) return -1;
-        char * str_pos = strrchr(cwd, '/');
-        if (str_pos == NULL) return -1;
-        cwd[str_pos - cwd + 1] = '\0';
-        strcat(cwd, "doc");
-        f = fopen(cwd, "r");
-    }
-
-
-    // no external help file found -> use compiled-in doc
-    if (! f ) {
-        f = fmemopen((void *) embedded_help, EMBEDDED_HELP_SIZE, "r");
-    }
+    // Help text is compiled in (embedded_help); no external file lookup.
+    f = fmemopen((void *) embedded_help, EMBEDDED_HELP_SIZE, "r");
 
     if (! f ) return -1;
 

@@ -159,7 +159,7 @@ else ifeq ($(shell uname -s),NetBSD)
 
   LDLIBS += -lncursesw
 else
-  LDFLAGS += -lncursesw
+LDLIBS += -lncursesw
 endif
 
 OBJS = $(patsubst %.c, %.o, $(wildcard *.c) $(wildcard actions/*.c) $(wildcard formats/*.c) $(wildcard cmds/*.c) $(wildcard utils/*.c)) gram.o
@@ -208,6 +208,10 @@ experres.h : gram.y eres.sed
 
 statres.h : gram.y sres.sed
 	sed -f sres.sed < $< > $@
+embedded_help.h : doc
+	{ echo '/* auto-generated from src/doc — do not edit by hand */'; xxd -i doc | sed 's/^unsigned char doc\[\]/static const unsigned char embedded_help[]/; /^unsigned int doc_len/d'; echo '#define EMBEDDED_HELP_SIZE (sizeof(embedded_help))'; } > $@
+
+help.o : embedded_help.h
 
 pvmtbl.o: sc.h pvmtbl.c
 	$(CC) ${CFLAGS} -c -DPSC pvmtbl.c
