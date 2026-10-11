@@ -153,12 +153,12 @@ void do_visualmode(struct block * buf) {
     // we are moving (previous to a 'C-o' keypress)
     if (moving == TRUE) {
         switch (buf->value) {
-            case L'j':
+            case L'k':
             case OKEY_DOWN:
                 sh->currow = forw_row(sh, 1)->row;
                 break;
 
-            case L'k':
+            case L'l':
             case OKEY_UP:
                 sh->currow = back_row(sh, 1)->row;
                 break;
@@ -168,7 +168,7 @@ void do_visualmode(struct block * buf) {
                 sh->curcol = back_col(sh, 1)->col;
                 break;
 
-            case L'l':
+            case L'e':
             case OKEY_RIGHT:
                 sh->curcol = forw_col(sh, 1)->col;
                 break;
@@ -219,7 +219,7 @@ void do_visualmode(struct block * buf) {
 
     // MOVEMENT COMMANDS
     // UP - ctl(b)
-    } else if (buf->value == OKEY_UP || buf->value == L'k' || buf->value == ctl('b') ) {
+    } else if (buf->value == OKEY_UP || buf->value == L'l' || buf->value == ctl('b') ) {
         int n, i;
         if (buf->value == ctl('b')) {
             n = SC_DISPLAY_ROWS;
@@ -239,7 +239,7 @@ void do_visualmode(struct block * buf) {
             }
 
     // DOWN - ctl('f')
-    } else if (buf->value == OKEY_DOWN || buf->value == L'j' || buf->value == ctl('f')) {
+    } else if (buf->value == OKEY_DOWN || buf->value == L'k' || buf->value == ctl('f')) {
         int n, i;
         if (buf->value == ctl('f')) {
             n = SC_DISPLAY_ROWS;
@@ -266,7 +266,7 @@ void do_visualmode(struct block * buf) {
         }
 
     // RIGHT
-    } else if (buf->value == OKEY_RIGHT || buf->value == L'l') {
+    } else if (buf->value == OKEY_RIGHT || buf->value == L'e') {
         if (r->orig_col <= r->tlcol && r->tlcol <= r->brcol && r->brcol+2 < sh->maxcols) {
             while (sh->col_hidden[++ r->brcol]);
             sh->curcol = r->brcol;

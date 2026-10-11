@@ -77,10 +77,10 @@ void shift(struct sheet * sh, int r, int c, int rf, int cf, wchar_t type) {
     if (cf - 1 + cmd_multiplier >= sh->maxcols && type == L'h') {
         sc_error("current column + multiplier exceeds max column. Nothing changed");
         return;
-    } else if (rf - 1 + cmd_multiplier >= sh->maxrows && type == L'k') {
+    } else if (rf - 1 + cmd_multiplier >= sh->maxrows && type == L'l') {
         sc_error("current row + multiplier exceeds max row. Nothing changed");
         return;
-    } else if (any_locked_cells(sh, r, c, rf, cf) && (type == L'h' || type == L'k') ) {
+    } else if (any_locked_cells(sh, r, c, rf, cf) && (type == L'h' || type == L'l') ) {
         sc_error("Locked cells encountered. Nothing changed");
         return;
     }
@@ -91,7 +91,7 @@ void shift(struct sheet * sh, int r, int c, int rf, int cf, wchar_t type) {
 
     switch (type) {
 
-        case L'j':
+        case L'k':
             fix_marks(sh,  (rf - r + 1) * cmd_multiplier, 0, r, sh->maxrow, c, cf);
 #ifdef UNDO
             save_undo_range_shift(cmd_multiplier, 0, r, c, rf + (rf-r+1) * (cmd_multiplier - 1), cf);
@@ -99,7 +99,7 @@ void shift(struct sheet * sh, int r, int c, int rf, int cf, wchar_t type) {
             while (ic--) shift_range(sh, ic, 0, r, c, rf, cf);
             break;
 
-        case L'k':
+        case L'l':
             fix_marks(sh, -(rf - r + 1) * cmd_multiplier, 0, r, sh->maxrow, c, cf);
             yank_area(sh, r, c, rf + (rf-r+1) * (cmd_multiplier - 1), cf, 'a', cmd_multiplier); // keep ents in yanklist for sk
 #ifdef UNDO
@@ -132,7 +132,7 @@ void shift(struct sheet * sh, int r, int c, int rf, int cf, wchar_t type) {
 #endif
             break;
 
-        case L'l':
+        case L'e':
             fix_marks(sh, 0,  (cf - c + 1) * cmd_multiplier, r, rf, c, sh->maxcol);
 #ifdef UNDO
             save_undo_range_shift(0, cmd_multiplier, r, c, rf, cf + (cf-c+1) * (cmd_multiplier - 1));

@@ -597,7 +597,7 @@ command:
     |    S_SHIFT var_or_range STRING {
                                        struct roman * roman = session->cur_doc;
                                        struct sheet * sh = roman->cur_sh;
-                                       if (strlen($3) != 1 || ($3[0] != 'h' && $3[0] != 'j' && $3[0] != 'k' && $3[0] != 'l')) {
+                                       if (strlen($3) != 1 || ($3[0] != 'h' && $3[0] != 'e' && $3[0] != 'k' && $3[0] != 'l')) {
                                            sc_error("wrong parameter for shift command");
                                        } else {
                                            wchar_t wstr[2] = L"";

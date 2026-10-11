@@ -58,6 +58,7 @@
 #include "utils/string.h"
 #include "help.h"
 #include "conf.h"
+#include "embedded_help.h"
 
 
 static char ** long_help;
@@ -91,6 +92,12 @@ int load_help () {
         f = fopen("./doc", "r");
     }
 
+    // we try to read help file in HELP_PATH/doc
+    if (! f ) {
+        sprintf(helpfile_path, "%s/doc", HELP_PATH);
+        f = fopen(helpfile_path, "r");
+    }
+
     // last change to read the help file !
     if (! f ) {
         char cwd[PATH_MAX];
@@ -101,6 +108,12 @@ int load_help () {
         cwd[str_pos - cwd + 1] = '\0';
         strcat(cwd, "doc");
         f = fopen(cwd, "r");
+    }
+
+
+    // no external help file found -> use compiled-in doc
+    if (! f ) {
+        f = fmemopen((void *) embedded_help, EMBEDDED_HELP_SIZE, "r");
     }
 
     if (! f ) return -1;
@@ -385,7 +398,7 @@ int show_lines() {
             #ifdef USECOLORS
             bold && ! key?
             ui_set_ucolor(main_win, &ucolors[HELP_HIGHLIGHT], DEFAULT_COLOR) :
-            ui_set_ucolor(main_win, &ucolors[NORMAL], DEFAULT_COLOR);
+            ui_set_ucolor(main_win, &ucolors[HELP_TEXT], DEFAULT_COLOR);
             #endif
 
             if (long_help[lineno + delta][i] == '<' || long_help[lineno + delta][i] == '{') {
@@ -401,7 +414,7 @@ int show_lines() {
 
             if (long_help[lineno + delta][i] == '&') {
                 #ifdef USECOLORS
-                ui_set_ucolor(main_win, &ucolors[NORMAL], DEFAULT_COLOR);
+                ui_set_ucolor(main_win, &ucolors[HELP_TEXT], DEFAULT_COLOR);
                 #endif
                 continue;
             } else if (look_result != -1 && i >= look_result &&

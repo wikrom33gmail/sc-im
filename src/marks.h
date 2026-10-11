@@ -63,4 +63,5 @@ void set_cell_mark(char c, struct sheet * sh, int row, int col);
 void set_range_mark(char c, struct sheet * sh, struct srange * s);
 void fix_marks(struct sheet * sh, int deltar, int deltac, int row_desde, int row_hasta, int col_desde, int col_hasta);
 mark * get_mark(char c);
+int get_mark_details(char * buf, int bufsize);
 void clean_marks_by_sheet(struct sheet * sh);

@@ -770,7 +770,7 @@ void formatcol(struct sheet * sh, int c) {
             roman->modflg++;
             break;
         case '>':
-        case 'l':
+        case 'e':
         case OKEY_RIGHT:
             for (i = sh->curcol; i < sh->curcol + arg; i++) {
                 sh->fwidth[i]++;
@@ -1154,10 +1154,10 @@ void chg_mode(char strcmd){
         case '\\':
             curmode = INSERT_MODE;
             break;
-        case 'E':
+        case 'J':
             curmode = EDIT_MODE;
             break;
-        case 'e':
+        case 'j':
             curmode = EDIT_MODE;
             break;
         case ':':
@@ -2855,7 +2855,7 @@ int is_single_command (struct block * buf, long timeout) {
         else if (buf->value == L'>')        result = MOVEMENT_CMD;
         else if (buf->value == L'=')        result = MOVEMENT_CMD;
         else if (buf->value == L'e')        result = MOVEMENT_CMD;
-        else if (buf->value == L'E')        result = MOVEMENT_CMD;
+        else if (buf->value == L'J')        result = MOVEMENT_CMD;
         else if (buf->value == L'v')        result = MOVEMENT_CMD;
 
         else if (buf->value == L'Q')        result = MOVEMENT_CMD;  /* FOR TEST PURPOSES */
@@ -2973,7 +2973,7 @@ int is_single_command (struct block * buf, long timeout) {
 
         else if (buf->value == L'z' && bs == 2 &&    // scrolling
                ( buf->pnext->value == L'h' ||
-                 buf->pnext->value == L'l' ||
+                 buf->pnext->value == L'e' ||
                  buf->pnext->value == L'z' ||
                  buf->pnext->value == L'm' ||
                  buf->pnext->value == L'.' ||
@@ -2996,7 +2996,7 @@ int is_single_command (struct block * buf, long timeout) {
                  buf->pnext->value > 26)) result = MOVEMENT_CMD;
 
         else if (buf->value == L's' && bs == 2 &&    // shift cell down or up
-               ( buf->pnext->value == L'j' ||
+               ( buf->pnext->value == L'e' ||
                  buf->pnext->value == L'k' ||
                  buf->pnext->value == L'h' ||
                  buf->pnext->value == L'l')) result = EDITION_CMD;
@@ -3030,11 +3030,11 @@ int is_single_command (struct block * buf, long timeout) {
                  buf->pnext->value == L'<' ||
                  buf->pnext->value == L'h' ||
                  buf->pnext->value == OKEY_LEFT ||
-                 buf->pnext->value == L'l' ||
+                 buf->pnext->value == L'e' ||
                  buf->pnext->value == OKEY_RIGHT ||
-                 buf->pnext->value == L'j' ||
-                 buf->pnext->value == OKEY_DOWN ||
                  buf->pnext->value == L'k' ||
+                 buf->pnext->value == OKEY_DOWN ||
+                 buf->pnext->value == L'l' ||
                  buf->pnext->value == OKEY_UP ||
                  buf->pnext->value == L'-' ||
                  buf->pnext->value == L'+' ||
@@ -3045,7 +3045,7 @@ int is_single_command (struct block * buf, long timeout) {
                ) result = EDITION_CMD;
 
     } else if (curmode == VISUAL_MODE && bs == 1) {
-             if (buf->value == L'j' ||
+             if (buf->value == L'e' ||
                  buf->value == OKEY_DOWN ||
                  buf->value == L'k' ||
                  buf->value == OKEY_UP    ||
@@ -3089,7 +3089,7 @@ int is_single_command (struct block * buf, long timeout) {
                  buf->pnext->value == L'd')  ||
                 (buf->value == L's' && (
                  buf->pnext->value == L'h' ||
-                 buf->pnext->value == L'j' ||
+                 buf->pnext->value == L'e' ||
                  buf->pnext->value == L'k' ||
                  buf->pnext->value == L'l' ))
             ) {

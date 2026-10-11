@@ -143,6 +143,7 @@ L"iunmap",
 L"load!",
 L"load",
 L"lock",
+L"marks",
 L"movesheet",
 L"movetosheet",
 L"newsheet",
@@ -968,6 +969,11 @@ void do_commandmode(struct block * sb) {
             extern int len_maps;
             char valores[MAXMAPITEM * len_maps];
             get_mappings(valores);
+            ui_show_text(valores);
+
+        } else if ( ! wcscmp(inputline, L"marks") ) {
+            char valores[80 * 26];   // up to 26 marks ('a'-'z'), ~80 chars each + header
+            get_mark_details(valores, sizeof(valores));
             ui_show_text(valores);
 
         } else if ( ! wcsncmp(inputline, L"movesheet", 9) ||

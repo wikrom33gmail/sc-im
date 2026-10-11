@@ -110,7 +110,7 @@ void do_normalmode(struct block * buf) {
             break;
 
         // MOVEMENT COMMANDS
-        case L'j':
+        case L'k':
         case OKEY_DOWN:
             sh->lastcol = sh->curcol;
             sh->lastrow = sh->currow;
@@ -119,7 +119,7 @@ void do_normalmode(struct block * buf) {
             ui_update(TRUE);
             break;
 
-        case L'k':
+        case L'l':
         case OKEY_UP:
             sh->lastcol = sh->curcol;
             sh->lastrow = sh->currow;
@@ -137,7 +137,7 @@ void do_normalmode(struct block * buf) {
             ui_update(TRUE);
             break;
 
-        case L'l':
+        case L'e':
         case OKEY_RIGHT:
             sh->lastrow = sh->currow;
             sh->lastcol = sh->curcol;
@@ -523,7 +523,7 @@ void do_normalmode(struct block * buf) {
 
         // EDITION COMMANDS
         // edit cell (v)
-        case L'e':
+        case L'j':
             if (locked_cell(sh, sh->currow, sh->curcol)) return;
             inputline_pos = 0;
             real_inputline_pos = 0;
@@ -531,7 +531,7 @@ void do_normalmode(struct block * buf) {
             break;
 
         // edit cell (s)
-        case L'E':
+        case L'J':
             if (locked_cell(sh, sh->currow, sh->curcol)) return;
             inputline_pos = 0;
             real_inputline_pos = 0;
@@ -581,7 +581,7 @@ void do_normalmode(struct block * buf) {
                 break;
 
             // decrease row height
-            } else if (buf->pnext->value == 'k' || buf->pnext->value == OKEY_UP) {
+            } else if (buf->pnext->value == 'l' || buf->pnext->value == OKEY_UP) {
 
 #ifdef UNDO
                 create_undo_action();
@@ -600,7 +600,7 @@ void do_normalmode(struct block * buf) {
                 break;
 
             // increase row height
-            } else if (buf->pnext->value == 'j' || buf->pnext->value == OKEY_DOWN) {
+            } else if (buf->pnext->value == 'k' || buf->pnext->value == OKEY_DOWN) {
 
 #ifdef UNDO
                 create_undo_action();
@@ -984,7 +984,7 @@ void do_normalmode(struct block * buf) {
             int scroll = 0;
 
             switch (buf->pnext->value) {
-                case L'l':
+                case L'e':
                     scroll_right(sh, 1);
                     break;
 

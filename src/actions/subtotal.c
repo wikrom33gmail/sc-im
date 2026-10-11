@@ -122,7 +122,7 @@ int subtotal(int r, int c, int rf, int cf, int group_col, char * operation, int 
         }
         if (is_subtotal_row) {
            cmd_multiplier = 1;
-           shift(sh, i, c, i, cf, L'k');
+           shift(sh, i, c, i, cf, L'l');
            i--;
            rf--;
         }
@@ -142,7 +142,7 @@ int subtotal(int r, int c, int rf, int cf, int group_col, char * operation, int 
         if ( (p && q && p->label && q->label && strcmp(q->label, p->label) != 0)
            || i == rf + new_rows + 1) {
            cmd_multiplier = 1;
-           shift(sh, i, c, i, cf, L'j');
+           shift(sh, i, c, i, cf, L'k');
 
            swprintf(cmd, BUFFERSIZE, L"rightstring %s%d = \"+%s(%s)\"", coltoa(group_col), i, operation, p->label);
            send_to_interp(cmd);

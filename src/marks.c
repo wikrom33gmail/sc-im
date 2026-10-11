@@ -172,3 +172,37 @@ void clean_marks_by_sheet(struct sheet * sh) {
     }
     return;
 }
+
+/**
+ * \brief get_mark_details()
+ * \details build a text listing of all set marks (cell or range) into buf.
+ * \param[out] char * buf destination buffer
+ * \param[in] int bufsize size of buf in bytes
+ * \return number of bytes written to buf
+ */
+int get_mark_details(char * buf, int bufsize) {
+    extern char * coltoa(int);
+    int i, pos = 0;
+
+    if (marks == NULL || bufsize <= 0) return 0;
+
+    pos += snprintf(buf + pos, bufsize - pos, "%-4s %-6s %-12s %s\n", "Mark", "Type", "Sheet", "Position");
+    for (i = 'a'; i <= 'z'; i++) {
+        struct mark * m = marks + i;
+        const char * sheet_name;
+
+        if (m->sheet == NULL) continue;
+        sheet_name = m->sheet->name ? m->sheet->name : "(unnamed)";
+
+        if (m->row != -1 && m->col != -1) { // cell mark
+            pos += snprintf(buf + pos, bufsize - pos, "%-4c %-6s %-12.12s %s%d\n",
+                i, "cell", sheet_name, coltoa(m->col), m->row);
+        } else if (m->rng != NULL) { // range mark
+            pos += snprintf(buf + pos, bufsize - pos, "%-4c %-6s %-12.12s %s%d:",
+                i, "range", sheet_name, coltoa(m->rng->tlcol), m->rng->tlrow);
+            pos += snprintf(buf + pos, bufsize - pos, "%s%d\n",
+                coltoa(m->rng->brcol), m->rng->brrow);
+        }
+    }
+    return pos;
+}
