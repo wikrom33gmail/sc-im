@@ -415,6 +415,14 @@ void do_normalmode(struct block * buf) {
             ui_update(TRUE);
             break;
 
+        // ,a3 -> goto cell A3 (comma acts like 'go')
+        case L',':
+            (void) swprintf(interp_line, BUFFERSIZE, L"goto %s", parse_cell_name(1, buf));
+            send_to_interp(interp_line);
+            unselect_ranges();
+            ui_update(TRUE);
+            break;
+
         // repeat last goto command - backwards
         case L'N':
             {

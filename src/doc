@@ -1,6 +1,34 @@
                          This is the sc-im help file. *colemak layout*
 
-Use the arrow keys to move around, or 'k' to go down and 'l' to go up.
+Table of contents:
+
+| #  | Section                                  |
+|--- |---------                                 |
+| 0  | Intro / help navigation                  |
+| 0  | Modes overview                           |
+| 1  | NORMAL MODE                              |
+| 2  | INSERT MODE                              |
+| 3  | EDIT MODE                                |
+| 4  | COMMAND MODE                             |
+| 5  | VISUAL MODE . Selecting a range          |
+| 6  | MAPPING                                  |
+| 7  | COMMAND MULTIPLIER                       |
+| 8  | DATES INPUT                              |
+| 9  | NUMBER FORMATS                           |
+| 10 | Entering Greek and Math operator symbols |
+| 11 | Other configuration variables            |
+| 12 | Built-in Range Functions                 |
+| 13 | Built-in Numeric Functions               |
+| 14 | String Expressions                       |
+| 15 | Built-in String Functions                |
+| 16 | Built-in Date and Time Functions         |
+| 17 | Other functions                          |
+| 18 | LUA Scripts and Triggers                 |
+| 19 | Supported file formats / File import     |
+| 20 | THEMES                                   |
+| 21 | External scripts                         |
+
+Use the arrow keys to move around, or 'j' to go down and 'k' to go up.
 You can also use the <ENTER> key to go one line down and <DEL> to go up.
 
 <SPACE> moves a page down, while <C-f> and <C-b> move half page down or up.
@@ -55,6 +83,7 @@ Navigation commands:
      '{a-zA-Z}   Go to the cell or range marked previously with the character.
                  See 'm' for details.
      goab24      Go to cell AB24.  (There is no need to press <ENTER>.)
+     ,ab24       Same as 'goab24': Go to cell AB24. (There is no need to press <ENTER>.)
      g0          Go to the leftmost column visible on screen.
      g$          Go to the rightmost column visible on screen.
      gM          Go to the middle column on the screen.
