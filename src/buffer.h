@@ -42,6 +42,9 @@
  * \brief Header file for buffer.c
  */
 
+#ifndef BUFFER_H
+#define BUFFER_H
+
 #include <wchar.h>
 #include <wctype.h>
 
@@ -62,3 +65,4 @@ int get_pbuflen(struct block * buf);
 int get_bufval(struct block * buf, int d);
 int find_val(struct block * buf, int value);
 struct block * dequeue (struct block * buf);
+#endif // BUFFER_H

@@ -54,6 +54,7 @@
 #include "../yank.h"
 #include "../marks.h"
 #include "../buffer.h"
+#include "../whichkey.h"
 #include "../tui.h"
 #include "../conf.h"    // for conf parameters
 #include "../xmalloc.h" // for scxfree
@@ -1140,6 +1141,7 @@ void center(struct sheet * sh, int sr, int sc, int er, int ec) {
  * \return none
  */
 void chg_mode(char strcmd){
+    wk_hide(); // mode change ends the wait-for-keys context
     lastmode = curmode;
     switch (strcmd) {
         case '=':

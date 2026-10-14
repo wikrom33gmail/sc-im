@@ -1488,6 +1488,11 @@ Commands for handling cell content:
     Make the screen cursor follow the active cell. Useful for people
     using sc-im with a braille display.
 
+    'whichkey' [default on]
+    While waiting for more keys in NORMAL or VISUAL mode, show a popup near
+    the cursor listing the available continuations of the typed prefix with
+    their descriptions (like neovim's which-key). Set to 0 to disable.
+
     'ignore_hidden' [default off]
     set this if you want the hidden rows of a spreadsheet to be ignored when exporting them
     to another format.

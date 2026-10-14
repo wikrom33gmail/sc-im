@@ -42,6 +42,9 @@
  * \brief Header file for color.c
  */
 
+#ifndef COLOR_H
+#define COLOR_H
+
 #include "sc.h"
 #include "macros.h"
 
@@ -127,3 +130,4 @@ int free_custom_colors();
 struct custom_color * get_custom_color(char * name);
 int count_custom_colors();
 struct custom_color * get_custom_color_by_number(int number);
+#endif // COLOR_H

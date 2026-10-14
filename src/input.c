@@ -58,6 +58,7 @@
 #include "utils/string.h"
 #include "cmds/cmds_visual.h"
 #include "buffer.h"
+#include "whichkey.h"
 #include "digraphs.h"
 
 static wint_t wd;          // char read from stdin
@@ -112,6 +113,8 @@ void handle_input(struct block * buffer) {
 
         // Modify cursor state according to the current mode
         ui_handle_cursor();
+        // which-key popup while waiting for more keys
+        wk_show(buffer);
 
         // Read new character from stdin
         return_value = ui_getch(&wd);
@@ -120,6 +123,7 @@ void handle_input(struct block * buffer) {
         if (d == KEY_MOUSE) {
             getmouse (&event);
             ui_handle_mouse(event);
+            wk_hide(); // remove popup before mouse handling redraws
             return;
         }
 #endif
@@ -205,6 +209,7 @@ void handle_input(struct block * buffer) {
         }
 
     }
+    wk_hide(); // remove popup before timeout handling or command execution
     if (msec >= get_conf_int("command_timeout")) { // timeout. Command incomplete
         cmd_pending = 0;      // No longer wait for a command, set flag.
         cmd_multiplier = 0;   // Reset multiplier
@@ -224,6 +229,7 @@ void handle_input(struct block * buffer) {
  * \return none
  */
 void break_waitcmd_loop(struct block * buffer) {
+    wk_hide(); // remove popup when ESC or signal interrupts the wait loop
     if (curmode == COMMAND_MODE) {
 #ifdef HISTORY_FILE
         del_item_from_history(commandline_history, 0);

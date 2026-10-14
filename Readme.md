@@ -21,6 +21,7 @@ sc-im is based on [sc](https://en.wikipedia.org/wiki/Sc_(spreadsheet_calculator)
 - 65.536 rows and 702 columns supported. (The number of rows can be expanded to 1.048.576 if wished).
 - CSV / TAB delimited / XLSX file import and export. ODS import. Markdown export.
 - Key-mappings.
+- Which-key style popup showing available keys while sc-im waits for more input (like neovim's which-key).
 - Autobackup.
 - Direct color support - specifing the RGB values, screen colors can be customized by user, even at runtime.
 - Colorize cells or give them format such as bold, italic or underline.

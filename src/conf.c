@@ -76,6 +76,7 @@ const char default_config[] =
     "ignorecase=0\n"
     "show_cursor=0\n"
     "trigger=1\n"
+    "whichkey=1\n"
     "version=0\n"
     "help=0\n"
     "input_bar_bottom=0\n"
