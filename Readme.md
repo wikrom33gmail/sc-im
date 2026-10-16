@@ -22,6 +22,7 @@ sc-im is based on [sc](https://en.wikipedia.org/wiki/Sc_(spreadsheet_calculator)
 - CSV / TAB delimited / XLSX file import and export. ODS import. Markdown export.
 - Key-mappings.
 - Which-key style popup showing available keys while sc-im waits for more input (like neovim's which-key).
+- Embedded help (compiled into the binary) with `:marks` listing and customizable `HELP_TEXT` color.
 - Autobackup.
 - Direct color support - specifing the RGB values, screen colors can be customized by user, even at runtime.
 - Colorize cells or give them format such as bold, italic or underline.
@@ -43,21 +44,22 @@ sc-im is based on [sc](https://en.wikipedia.org/wiki/Sc_(spreadsheet_calculator)
 |------------------|-----------------------------------------|
 |         =        | Insert a numeric value                  |
 |         \        | Insert a text value                     |
-|         e        | Edit a numeric value                    |
-|         E        | Edit a string value                     |
+|         j        | Edit a numeric value                    |
+|         J        | Edit a string value                     |
 |         x        | Delete current cell content             |
 |        :q        | Quit the app                            |
 |        :h        | See help                                |
+|     :marks       | List all set marks                      |
 |  :w filename.sc  | Save current spreadsheet in sc format   |
-|         j        | Move down                               |
-|         k        | Move up                                 |
+|         k        | Move down                               |
+|         l        | Move up                                 |
 |         h        | Move left                               |
-|         l        | Move right                              |
-|      goab12      | go to cell AB12                         |
+|         e        | Move right                              |
+|  goab12 / ,ab12  | go to cell AB12                         |
 |         u        | undo last change                        |
 |        C-r       | redo last change undone                 |
 |        yy        | Copy current cell                       |
-|         v        | select a range using cursor/hjkl keys   |
+|         v        | select a range using cursor/hkle keys   |
 |         p        | paste a previously yanked cell or range |
 |        ir        | insert row                              |
 |        ic        | insert column                           |
@@ -147,8 +149,9 @@ Here is an example `~/.config/sc-im/scimrc` :
     set numeric_decimal=0
     set overlap
     set xlsx_readformulas
+    set whichkey
 
-Other configuration variables are listed in the [help file](https://raw.githubusercontent.com/andmarti1424/sc-im/freeze/src/doc).
+Other configuration variables are listed in the [help file](src/doc) (also accessible in-app via `:h`).
 
 ### Issues and questions
 Please open an issue if you find a bug.
