@@ -214,6 +214,7 @@ void handle_input(struct block * buffer) {
     if (msec >= get_conf_int("command_timeout")) { // timeout. Command incomplete
         cmd_pending = 0;      // No longer wait for a command, set flag.
         cmd_multiplier = 0;   // Reset multiplier
+        ui_update(FALSE);
     } else {                  // Execute command or mapping
         cmd_pending = 0;
         ui_clr_header(1);     // Clean second line
