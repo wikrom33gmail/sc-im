@@ -119,6 +119,7 @@ void handle_input(struct block * buffer) {
         // Read new character from stdin
         return_value = ui_getch(&wd);
         d = wd;
+        if (return_value == -1) d = 0; // no key read, don't let fix_timeout reset timer
 #ifdef MOUSE
         if (d == KEY_MOUSE) {
             getmouse (&event);

@@ -19,6 +19,12 @@
  *    must display the following acknowledgement:                              *
  *    This product includes software developed by Andrés G. Martinelli         *
  *    <andmarti@gmail.com>.                                                    *
+#define XLSX_FMT_DATE 14
+#define XLSX_FMT_TIME 20
+#define XLSX_FMT_PERCENT 10
+#define XLSX_FMT_PERCENT2 9
+#define XLSX_FMT_CURRENCY 4
+#define XLSX_FMT_SCIENTIFIC 11
  * 4. Neither the name of the Andrés G. Martinelli nor the                     *
  *   names of other contributors may be used to endorse or promote products    *
  *   derived from this software without specific prior written permission.     *
@@ -228,9 +234,10 @@ void get_sheet_data(xmlDocPtr doc, xmlDocPtr doc_strings, xmlDocPtr doc_styles) 
             }
 
             // try to handle custom formats
-            if (i_fmtid == 278 || i_fmtid == 185 ||
-                i_fmtid == 196 || i_fmtid == 217 || i_fmtid == 326 ||
-                i_fmtid == 100 || (i_fmtid > 163 && i_fmtid < 181)) {
+            if (i_fmtid == XLSX_FMT_DATE || i_fmtid == XLSX_FMT_TIME ||
+                i_fmtid == XLSX_FMT_PERCENT || i_fmtid == XLSX_FMT_PERCENT2 ||
+                i_fmtid == XLSX_FMT_CURRENCY || i_fmtid == XLSX_FMT_SCIENTIFIC ||
+                (i_fmtid > 163 && i_fmtid < 181)) {
                 char * strFormatCode = NULL;
                 strFormatCode = get_xlsx_number_format_by_id(doc_styles, i_fmtid);
                 if (strFormatCode != NULL && ! strcmp(strFormatCode, "General")) i_fmtid = 0;

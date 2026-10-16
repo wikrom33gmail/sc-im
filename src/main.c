@@ -166,6 +166,7 @@ extern graphADT graph;
  *
  * \return 0 on success; -1 on errors
  */
+extern WINDOW * input_win;
 int main (int argc, char ** argv) {
     // Define how the file stream should be buffered. Error if unsuccessful.
     if (setvbuf(stderr, stderr_buffer, _IOFBF, STDERRBUF) != 0) {
@@ -302,6 +303,7 @@ int main (int argc, char ** argv) {
             // show mode and cell's details in status bar
             ui_print_mode();
             ui_show_celldetails();
+            wrefresh(input_win);
         } else {
             ui_show_header();
             ui_update(TRUE);

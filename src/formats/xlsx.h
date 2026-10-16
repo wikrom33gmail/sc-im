@@ -43,6 +43,12 @@
  */
 
 #ifdef XLSX
+#define XLSX_FMT_DATE       278
+#define XLSX_FMT_TIME       185
+#define XLSX_FMT_PERCENT    196
+#define XLSX_FMT_PERCENT2   217
+#define XLSX_FMT_CURRENCY   326
+#define XLSX_FMT_SCIENTIFIC 100
 #include <libxml/tree.h>
 void get_sheet_data(xmlDocPtr doc, xmlDocPtr doc_strings, xmlDocPtr doc_styles);
 char * get_xlsx_string(xmlDocPtr doc, int pos);

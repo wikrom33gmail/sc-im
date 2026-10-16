@@ -41,6 +41,7 @@
  * \date 2017-07-18
  * \brief file that contain the different functions to support mappings
  */
+#define MAX_MAP_DEPTH 1000
 
 #include <stdlib.h>
 #include <ctype.h>
@@ -94,7 +95,7 @@ int could_be_mapping(struct block * b) {
 int replace_maps (struct block * b) {
     int r = 0;
 
-    if (++mapdepth == 1000) {
+    if (++mapdepth == MAX_MAP_DEPTH) {
         sc_error("recursive mapping");
         flush_buf(b);
         mapdepth = 0;

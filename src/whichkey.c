@@ -135,13 +135,20 @@ static int wk_match(const struct wk_entry * e, const wchar_t * pref) {
  */
 void wk_hide(void) {
     if (!wk_visible || !main_win) return;
-
-    /* repaint the grid region that was under the popup, straight from
-     * main_win's intact content (the popup was never written into main_win) */
-    prefresh(main_win, wk_top - wk_grid_top, wk_left, wk_top, wk_left,
-             wk_top + wk_h - 1, wk_left + wk_w - 1);
+    /* The popup was composited onto stdscr via a pad. ncurses keeps that pad on
+     * top of main_win for the overlapping region, so re-prefreshing (or fully
+     * refreshing) main_win never clears it. Restore the grid instead by reading
+     * main_win's cells non-destructively and writing them straight into stdscr,
+     * which unconditionally overwrites what the pad left in the virtual screen. */
+    /* restore the grid: read main_win's cells and write them straight into stdscr */
+    for (int r = 0; r < wk_h; r++) {
+        chtype buf[512];
+        int n = mvwinchstr(main_win, (wk_top - wk_grid_top) + r, wk_left, buf);
+        if (n > wk_w) n = wk_w;
+        for (int c = 0; c < n; c++)
+            mvwaddch(stdscr, wk_top + r, wk_left + c, buf[c]);
+    }
     doupdate();
-
     wk_visible = 0;
 }
 
@@ -153,10 +160,8 @@ void wk_hide(void) {
  */
 void wk_show(struct block * pending) {
     if (get_conf_int("nocurses") || !main_win) return;
-
     if (! get_conf_int("whichkey")) { wk_hide(); return; }
     if (curmode != NORMAL_MODE && curmode != VISUAL_MODE) { wk_hide(); return; }
-
     /* typed prefix, skipping leading multiplier digits */
     wchar_t pref[64]; int n = 0;
     for (int k = 0; k < get_bufsize(pending) && n < 63; k++) {
