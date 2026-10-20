@@ -2937,8 +2937,8 @@ int is_single_command (struct block * buf, long timeout) {
         else if (buf->value == L'g' && bs > 3 && buf->pnext->value == L'o' && timeout >= COMPLETECMDTIMEOUT)
                  result = MOVEMENT_CMD; // goto cell
                  // TODO add validation: buf->pnext->pnext->value must be a letter
-        else if (buf->value == L',' && bs > 2 && timeout >= COMPLETECMDTIMEOUT)
-                 result = MOVEMENT_CMD; // goto cell (comma prefix, e.g. ,a3 -> A3)
+        else if (buf->value == L' ' && bs > 2 && timeout >= COMPLETECMDTIMEOUT)
+                 result = MOVEMENT_CMD; // goto cell (space prefix, e.g. ' a3' -> A3)
 
         else if (buf->value == L'P' && bs == 2 && (
             buf->pnext->value == L'v' ||

@@ -40,7 +40,7 @@ static const struct wk_entry normal_keys[] = {
     { L"gT", "", "Previous sheet in file" },
     { L"g0", "", "Leftmost column on screen" },
     { L"g$", "", "Rightmost column on screen" },
-    { L",",  "...", "Go to cell (e.g. ,AB24)" },
+    { L" ",  "<SPACE>...", "Go to cell (e.g. ' AB24')" },
     { L"Pv", "", "Paste values only (below/left)" },
     { L"Pf", "", "Paste formatting only (below/left)" },
     { L"Pt", "", "Paste transposed (below/left)" },

@@ -40,31 +40,31 @@ sc-im is based on [sc](https://en.wikipedia.org/wiki/Sc_(spreadsheet_calculator)
 
 ## Quick start
 
-|        Key       |                 Purpose                 |
-|------------------|-----------------------------------------|
-|         =        | Insert a numeric value                  |
-|         \        | Insert a text value                     |
-|         j        | Edit a numeric value                    |
-|         J        | Edit a string value                     |
-|         x        | Delete current cell content             |
-|        :q        | Quit the app                            |
-|        :h        | See help                                |
-|     :marks       | List all set marks                      |
-|  :w filename.sc  | Save current spreadsheet in sc format   |
-|         k        | Move down                               |
-|         l        | Move up                                 |
-|         h        | Move left                               |
-|         e        | Move right                              |
-|  goab12 / ,ab12  | go to cell AB12                         |
-|         u        | undo last change                        |
-|        C-r       | redo last change undone                 |
-|        yy        | Copy current cell                       |
-|         v        | select a range using cursor/hkle keys   |
-|         p        | paste a previously yanked cell or range |
-|        ir        | insert row                              |
-|        ic        | insert column                           |
-|        dr        | delete row                              |
-|        dc        | delete column                           |
+|           Key            |                 Purpose                 |
+|--------------------------|-----------------------------------------|
+|            =             | Insert a numeric value                  |
+|            \             | Insert a text value                     |
+|            j             | Edit a numeric value                    |
+|            J             | Edit a string value                     |
+|            x             | Delete current cell content             |
+|           :q             | Quit the app                            |
+|           :h             | See help                                |
+|         :marks           | List all set marks                      |
+|     :w filename.sc       | Save current spreadsheet in sc format   |
+|            k             | Move down                               |
+|            l             | Move up                                 |
+|            h             | Move left                               |
+|            e             | Move right                              |
+| `goab12` / `<SPACE>ab12` | go to cell AB12                         |
+|            u             | undo last change                        |
+|           C-r            | redo last change undone                 |
+|           yy             | Copy current cell                       |
+|            v             | select a range using cursor/hkle keys   |
+|            p             | paste a previously yanked cell or range |
+|           ir             | insert row                              |
+|           ic             | insert column                           |
+|           dr             | delete row                              |
+|           dc             | delete column                           |
 
 ## Screenshots
 ![demo image](screenshots/scim6.png?raw=true)

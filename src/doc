@@ -47,8 +47,6 @@ Important !!:
 
 ==============================================================================
 sc-im has the following modes:
-
-sc-im has the following modes:
    NORMAL MODE:  In Normal mode, you can navigate cells and input normal
                  commands.
    INSERT MODE:  Use the '=', '<', '>', or '\' to go to Insert mode, where you
@@ -83,7 +81,7 @@ Navigation commands:
      '{a-zA-Z}   Go to the cell or range marked previously with the character.
                  See 'm' for details.
      goab24      Go to cell AB24.  (There is no need to press <ENTER>.)
-     ,ab24       Same as 'goab24': Go to cell AB24. (There is no need to press <ENTER>.)
+     <SPACE>ab24 Same as "goab24": Go to cell AB24. (There is no need to press <ENTER>.)
      g0          Go to the leftmost column visible on screen.
      g$          Go to the rightmost column visible on screen.
      gM          Go to the middle column on the screen.
@@ -106,7 +104,7 @@ Navigation commands:
                  See :set command for details.
      c-e   c-y   Scroll a row down and up.
      zh          Scroll left one column.
-     zl          Scroll right one column.
+     ze          Scroll right one column.
      zH          Scroll left half a page.
      zL          Scroll right half page.
      zm          Scroll horizontally to position the selected cell at the
@@ -1260,8 +1258,8 @@ Commands for handling cell content:
     The Left and Right sequence of a mapping cannot contain numbers.
 
     The following special keys can be used for mappings:
-    <CR> <C-x> <TAB> <LEFT> <RIGHT> <DOWN> <UP> <DEL> <BS> <HOME> <END>
-    <PGDOWN> <PGUP> <ESC>
+    <CR> <C-x> <TAB> <SPACE> <LEFT> <RIGHT> <DOWN> <UP> <DEL> <BS> <HOME>
+    <END> <PGDOWN> <PGUP> <ESC>
 
     If an existing map sequence is remapped, it is replaced with the new one.
     Mapping is recursive by default. The non-recursive versions of :nmap,
